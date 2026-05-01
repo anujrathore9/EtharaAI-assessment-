@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const path = require("path");
 
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
@@ -17,11 +18,12 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL || "*",
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(morgan("dev"));
 
+// API Routes
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
@@ -32,9 +34,18 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/users", userRoutes);
 
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
+// Serve static frontend files
+const frontendDistPath = path.resolve(__dirname, "../../frontend/dist");
+app.use(express.static(frontendDistPath));
+
+// SPA catch-all: serve index.html for non-API GET requests
+app.use((req, res, next) => {
+  if (req.method !== "GET" || req.path.startsWith("/api")) {
+    return next();
+  }
+  res.sendFile(path.join(frontendDistPath, "index.html"));
 });
+
 app.use(errorHandler);
 
 module.exports = app;
