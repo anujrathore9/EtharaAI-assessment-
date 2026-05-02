@@ -1,19 +1,31 @@
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div
+      className={
+        theme === "dark"
+          ? "min-h-screen bg-slate-950 text-slate-100"
+          : "min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900"
+      }
+    >
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm"
+        className={
+          theme === "dark"
+            ? "bg-slate-900/95 border-b border-slate-700/50 shadow-xl"
+            : "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm"
+        }
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 lg:px-8">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/"
@@ -23,14 +35,16 @@ const Layout = ({ children }) => {
             </Link>
           </motion.div>
 
-          <nav className="flex items-center gap-6">
+          <nav className="flex flex-wrap items-center gap-4">
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
-                `text-sm font-medium transition-all duration-200 hover:text-blue-600 ${
+                `text-sm font-medium transition-all duration-200 hover:text-blue-400 ${
                   isActive
-                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                    : "text-slate-600"
+                    ? "text-blue-500 border-b-2 border-blue-500 pb-1"
+                    : theme === "dark"
+                      ? "text-slate-200"
+                      : "text-slate-600"
                 }`
               }
             >
@@ -39,30 +53,42 @@ const Layout = ({ children }) => {
             <NavLink
               to="/projects"
               className={({ isActive }) =>
-                `text-sm font-medium transition-all duration-200 hover:text-blue-600 ${
+                `text-sm font-medium transition-all duration-200 hover:text-blue-400 ${
                   isActive
-                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                    : "text-slate-600"
+                    ? "text-blue-500 border-b-2 border-blue-500 pb-1"
+                    : theme === "dark"
+                      ? "text-slate-200"
+                      : "text-slate-600"
                 }`
               }
             >
               Projects
             </NavLink>
-
-            <div className="flex items-center gap-3">
-              <span className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-3 py-1 text-xs font-medium text-white uppercase shadow-sm">
-                {user?.role}
-              </span>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={logout}
-                className="rounded-lg bg-gradient-to-r from-rose-500 to-pink-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:shadow-md transition-all duration-200"
-              >
-                Logout
-              </motion.button>
-            </div>
           </nav>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className={
+                theme === "dark"
+                  ? "rounded-full border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-100 hover:bg-slate-700 transition"
+                  : "rounded-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50 transition"
+              }
+            >
+              {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
+            </button>
+            <span className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-3 py-1 text-xs font-medium text-white uppercase shadow-sm">
+              {user?.role}
+            </span>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={logout}
+              className="rounded-lg bg-gradient-to-r from-rose-500 to-pink-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              Logout
+            </motion.button>
+          </div>
         </div>
       </motion.header>
 
