@@ -3,6 +3,7 @@
 A modern, professional full-stack team task management application with polished UI, dark mode, and seamless Railway deployment.
 
 **Live Features:**
+
 - ✨ Modern glassmorphism UI with smooth animations
 - 🌙 Light/Dark theme with persistent storage
 - 👁️ Password visibility toggle on auth forms
@@ -15,6 +16,7 @@ A modern, professional full-stack team task management application with polished
 ## Tech Stack
 
 ### Frontend
+
 - **React 19** + **Vite** (lightning-fast build)
 - **Tailwind CSS** with modern gradients and animations
 - **Framer Motion** for smooth micro-interactions
@@ -22,6 +24,7 @@ A modern, professional full-stack team task management application with polished
 - **React Router v7** for navigation
 
 ### Backend
+
 - **Node.js** + **Express 5**
 - **MongoDB** with Mongoose ODM
 - **JWT** for authentication
@@ -50,15 +53,23 @@ EtharaAI/
 ├─ frontend/
 │  ├─ src/
 │  │  ├─ api/             (Axios client configuration)
-│  │  ├─ components/      (Layout, StatCard, etc.)
-│  │  ├─ context/         (Auth, Theme providers)
-│  │  ├─ pages/           (Login, Signup, Dashboard, Projects)
+│  │  ├─ assets/          (Images, icons)
+│  │  ├─ components/      (Layout, StatCard, ProtectedRoute)
+│  │  ├─ context/         (AuthContext, ThemeContext)
+│  │  ├─ pages/           (Login, Signup, Dashboard, Projects, Tasks)
 │  │  ├─ App.jsx
+│  │  ├─ App.css
 │  │  ├─ main.jsx
 │  │  └─ index.css        (Global styles + dark mode)
+│  ├─ public/             (Static assets)
+│  ├─ index.html          (HTML entry point)
+│  ├─ vite.config.js      (Vite build config)
+│  ├─ eslint.config.js    (ESLint rules)
 │  ├─ .env.example        (Environment template)
 │  └─ package.json
-├─ package.json           (Root monorepo config)
+├─ .gitignore
+├─ package.json           (Root monorepo orchestration)
+├─ package-lock.json
 └─ README.md
 ```
 
@@ -67,6 +78,7 @@ EtharaAI/
 ## Features
 
 ### 🎨 Modern UI/UX
+
 - Professional glassmorphism design with gradient accents
 - Smooth page transitions and micro-interactions
 - Responsive grid layouts for all screen sizes
@@ -74,6 +86,7 @@ EtharaAI/
 - Password visibility toggle (Show/Hide) on login/signup
 
 ### 🔐 Authentication & Security
+
 - Secure signup/login with JWT tokens
 - Password hashing with bcryptjs
 - Token persistence in localStorage
@@ -81,16 +94,19 @@ EtharaAI/
 - Role-based access control (Admin/Member)
 
 ### 👥 Role-Based Access Control
+
 - **Admin**: Create projects, manage members, create tasks, assign to team
 - **Member**: View assigned tasks, update status, view projects
 
 ### 📁 Project Management
+
 - Create projects with description
 - Add/remove team members
 - View all projects and member lists
 - Project overview and analytics
 
 ### ✅ Task Management
+
 - Create tasks under projects
 - Assign to team members
 - Update task status (pending, in progress, completed)
@@ -98,6 +114,7 @@ EtharaAI/
 - Filter by status
 
 ### 📊 Dashboard Analytics
+
 - Total tasks count
 - Completed tasks tracker
 - Pending tasks alert
@@ -109,25 +126,30 @@ EtharaAI/
 ## Backend API Routes
 
 ### Auth (`/api/auth`)
+
 - `POST /signup` - Create new account
 - `POST /login` - Login with email & password
 - `GET /me` - Get current user profile
 
 ### Users (`/api/users`)
+
 - `GET /` - List all users (admin only)
 
 ### Projects (`/api/projects`)
+
 - `GET /` - Get user's projects
 - `POST /` - Create new project (admin)
 - `PATCH /:projectId/members` - Add member (admin)
 - `DELETE /:projectId/members/:userId` - Remove member (admin)
 
 ### Tasks (`/api/tasks`)
+
 - `POST /projects/:projectId` - Create task (admin)
 - `GET /projects/:projectId` - Get project tasks
 - `PATCH /:taskId/status` - Update task status
 
 ### Dashboard (`/api/dashboard`)
+
 - `GET /stats` - Get dashboard statistics
 
 ---
@@ -135,6 +157,7 @@ EtharaAI/
 ## Local Setup
 
 ### Prerequisites
+
 - Node.js v16+
 - MongoDB (local or Atlas)
 - npm or yarn
@@ -150,6 +173,7 @@ npm install
 ### Step 2: Configure Environment Variables
 
 **Backend (.env)**
+
 ```bash
 cd backend
 cp .env.example .env
@@ -157,6 +181,7 @@ cp .env.example .env
 ```
 
 Add to `backend/.env`:
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname
@@ -165,12 +190,14 @@ NODE_ENV=development
 ```
 
 **Frontend (.env)**
+
 ```bash
 cd ../frontend
 cp .env.example .env
 ```
 
 Add to `frontend/.env`:
+
 ```env
 VITE_API_URL=/api
 ```
@@ -231,6 +258,7 @@ This setup deploys as a **single service** with the backend serving the built fr
 ### How It Works
 
 The root `package.json` orchestrates the entire process:
+
 - `npm install` - Installs dependencies in both directories
 - `npm run build` - Builds the Vite frontend
 - `npm start` - Starts the backend server
@@ -242,6 +270,7 @@ The root `package.json` orchestrates the entire process:
 ## Development Workflow
 
 ### Frontend Development
+
 ```bash
 cd frontend
 npm run dev
@@ -249,6 +278,7 @@ npm run dev
 ```
 
 ### Backend Development
+
 ```bash
 cd backend
 npm run dev
@@ -256,6 +286,7 @@ npm run dev
 ```
 
 ### Build for Production
+
 ```bash
 # From root
 npm run build
@@ -279,6 +310,7 @@ On login and signup pages, use the **Show/Hide** button next to the password fie
 ## Key Features Breakdown
 
 ### 🎯 Authentication Flow
+
 1. User signs up → password hashed → JWT token created
 2. Login validates credentials → returns token
 3. Token stored in localStorage
@@ -286,16 +318,19 @@ On login and signup pages, use the **Show/Hide** button next to the password fie
 5. Logout clears token
 
 ### 🔒 Role-Based Authorization
+
 - Middleware checks user role before allowing actions
 - Admin can manage projects and members
 - Members can only view/update assigned tasks
 
 ### 📊 Real-Time Dashboard
+
 - Loads task statistics on page load
 - Displays total, completed, pending, and overdue tasks
 - Shows quick action cards for common operations
 
 ### 🎨 Modern UI System
+
 - Gradient backgrounds and text
 - Glassmorphism effects with backdrop blur
 - Smooth animations via Framer Motion
@@ -326,6 +361,7 @@ On login and signup pages, use the **Show/Hide** button next to the password fie
 ## Contributing
 
 Contributions are welcome! Please:
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -343,6 +379,7 @@ MIT - Feel free to use this project for personal or commercial purposes.
 ## Support
 
 For issues or questions:
+
 1. Check the Railway logs for error details
 2. Verify environment variables are set correctly
 3. Ensure MongoDB connection string is valid
@@ -351,4 +388,3 @@ For issues or questions:
 ---
 
 **Built with ❤️ by EtharaAI**
-
