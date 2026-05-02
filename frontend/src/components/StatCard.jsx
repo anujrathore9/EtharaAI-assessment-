@@ -8,28 +8,28 @@ const StatCard = ({ label, value, tone }) => {
           bg: "from-emerald-50 to-emerald-100",
           border: "border-emerald-200",
           text: "text-emerald-700",
-          icon: "📊"
+          icon: "📊",
         };
       case "border-amber-300":
         return {
           bg: "from-amber-50 to-amber-100",
           border: "border-amber-200",
           text: "text-amber-700",
-          icon: "⏳"
+          icon: "⏳",
         };
       case "border-rose-300":
         return {
           bg: "from-rose-50 to-rose-100",
           border: "border-rose-200",
           text: "text-rose-700",
-          icon: "⚠️"
+          icon: "⚠️",
         };
       default:
         return {
           bg: "from-slate-50 to-slate-100",
           border: "border-slate-200",
           text: "text-slate-700",
-          icon: "📋"
+          icon: "📋",
         };
     }
   };

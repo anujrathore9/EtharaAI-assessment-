@@ -14,11 +14,11 @@ const Layout = ({ children }) => {
         className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              to="/"
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent"
+            >
               Team Task Manager
             </Link>
           </motion.div>
@@ -28,7 +28,9 @@ const Layout = ({ children }) => {
               to="/dashboard"
               className={({ isActive }) =>
                 `text-sm font-medium transition-all duration-200 hover:text-blue-600 ${
-                  isActive ? "text-blue-600 border-b-2 border-blue-600 pb-1" : "text-slate-600"
+                  isActive
+                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+                    : "text-slate-600"
                 }`
               }
             >
@@ -38,7 +40,9 @@ const Layout = ({ children }) => {
               to="/projects"
               className={({ isActive }) =>
                 `text-sm font-medium transition-all duration-200 hover:text-blue-600 ${
-                  isActive ? "text-blue-600 border-b-2 border-blue-600 pb-1" : "text-slate-600"
+                  isActive
+                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
+                    : "text-slate-600"
                 }`
               }
             >

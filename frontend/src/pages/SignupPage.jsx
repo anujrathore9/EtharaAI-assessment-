@@ -8,7 +8,12 @@ import { useAuth } from "../context/AuthContext";
 const SignupPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "member" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "member",
+  });
   const [loading, setLoading] = useState(false);
 
   const submit = async (e) => {
